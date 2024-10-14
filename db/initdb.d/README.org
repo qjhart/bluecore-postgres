@@ -1,0 +1,70 @@
+* Blue core example postgres schema
+#+PROPERTY: header-args:sql :engine postgresql :cmdline "service=bluecore" :tangle yes
+
+  This schema is designed to allow for quick relational access to key components
+  of the bibframe metadata while maintaining fragments
+
+  #+begin_src sql
+    create extension uri;
+  #+end_src
+
+    #+begin_src sql
+    drop schema if exists bc cascade;
+    create schema bc;
+    alter database :DBNAME set search_path to bc,public;
+  #+end_src
+
+  #+RESULTS:
+  | DROP SCHEMA    |
+  |----------------|
+  | CREATE SCHEMA  |
+  | ALTER DATABASE |
+
+
+  [[https://dba.stackexchange.com/questions/115271/what-is-the-optimal-data-type-for-an-md5-field][md5 as hash function]]
+
+  #+begin_src sql
+    create table if not exists iri (
+      iri_id serial primary key,
+      iri uri,
+      chk uuid not null,
+      label text,
+      obj jsonb,
+      unique(iri,chk)
+      );
+
+    create table if not exists work (
+      title text
+      ) inherits (iri);
+
+    create table if not exists instance (
+      title text
+      ) inherits (iri);
+
+    create table if not exists iri_type (
+      iri_type_id serial primary key,
+      iri_id references iri,
+      type_id uri,
+      unique(iri_id,type_id)
+      );
+
+    create table if not exists iri_canonical(
+      iri uri primary key,
+      iri_id serial references iri
+      );
+
+    create table if not exists iri_local (
+      iri_id serial references iri
+      use_id serial references iri(iri_id),
+      primary key(iri_id,use_id)
+      );
+
+  #+end_src
+
+  #+RESULTS:
+  | CREATE TABLE |
+  |--------------|
+  | CREATE TABLE |
+  | CREATE TABLE |
+  | CREATE TABLE |
+  | CREATE TABLE |

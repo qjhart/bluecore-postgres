@@ -1,0 +1,1649 @@
+{
+  "@context": {
+    "@vocab": "http://id.loc.gov/ontologies/bibframe/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "bf": "http://id.loc.gov/ontologies/bibframe/",
+    "lc_instance": "http://id.loc.gov/resources/instances/",
+    "lc_work":"http://id.loc.gov/resources/works/",
+    "lc_hub":"http://id.loc.gov/resources/hubs/",
+    "lc_vocabulary":"http://id.loc.gov/vocabulary/",
+    "bflc": "http://id.loc.gov/ontologies/bflc/",
+  "AbbreviatedTitle": {
+    "@id": "bf:AbbreviatedTitle"
+  },
+  "AccessPolicy": {
+    "@id": "bf:AccessPolicy"
+  },
+  "AccessionNumber": {
+    "@id": "bf:AccessionNumber"
+  },
+  "AcquisitionSource": {
+    "@id": "bf:AcquisitionSource"
+  },
+  "AdminMetadata": {
+    "@id": "bf:AdminMetadata"
+  },
+  "Agent": {
+    "@id": "bf:Agent"
+  },
+  "Ansi": {
+    "@id": "bf:Ansi"
+  },
+  "AppliedMaterial": {
+    "@id": "bf:AppliedMaterial"
+  },
+  "AppliesTo": {
+    "@id": "bflc:AppliesTo"
+  },
+  "Archival": {
+    "@id": "bf:Archival"
+  },
+  "Arrangement": {
+    "@id": "bf:Arrangement"
+  },
+  "AspectRatio": {
+    "@id": "bf:AspectRatio"
+  },
+  "Audio": {
+    "@id": "bf:Audio"
+  },
+  "AudioIssueNumber": {
+    "@id": "bf:AudioIssueNumber"
+  },
+  "AudioTake": {
+    "@id": "bf:AudioTake"
+  },
+  "Barcode": {
+    "@id": "bf:Barcode"
+  },
+  "BaseMaterial": {
+    "@id": "bf:BaseMaterial"
+  },
+  "Binding": {
+    "@id": "bf:Binding"
+  },
+  "BookFormat": {
+    "@id": "bf:BookFormat"
+  },
+  "BroadcastStandard": {
+    "@id": "bf:BroadcastStandard"
+  },
+  "Capture": {
+    "@id": "bf:Capture"
+  },
+  "CaptureStorage": {
+    "@id": "bflc:CaptureStorage"
+  },
+  "Carrier": {
+    "@id": "bf:Carrier"
+  },
+  "Cartographic": {
+    "@id": "bf:Cartographic"
+  },
+  "CartographicDataType": {
+    "@id": "bf:CartographicDataType"
+  },
+  "CartographicObjectType": {
+    "@id": "bf:CartographicObjectType"
+  },
+  "Cartography": {
+    "@id": "bf:Cartography"
+  },
+  "Chronology": {
+    "@id": "bf:Chronology"
+  },
+  "Classification": {
+    "@id": "bf:Classification"
+  },
+  "ClassificationDdc": {
+    "@id": "bf:ClassificationDdc"
+  },
+  "ClassificationLcc": {
+    "@id": "bf:ClassificationLcc"
+  },
+  "ClassificationNlm": {
+    "@id": "bf:ClassificationNlm"
+  },
+  "ClassificationUdc": {
+    "@id": "bf:ClassificationUdc"
+  },
+  "Coden": {
+    "@id": "bf:Coden"
+  },
+  "Collection": {
+    "@id": "bf:Collection"
+  },
+  "CollectionArrangement": {
+    "@id": "bf:CollectionArrangement"
+  },
+  "CollectiveTitle": {
+    "@id": "bf:CollectiveTitle"
+  },
+  "ColorContent": {
+    "@id": "bf:ColorContent"
+  },
+  "Content": {
+    "@id": "bf:Content"
+  },
+  "ContentAccessibility": {
+    "@id": "bf:ContentAccessibility"
+  },
+  "Contribution": {
+    "@id": "bf:Contribution"
+  },
+  "CopyrightNumber": {
+    "@id": "bf:CopyrightNumber"
+  },
+  "CopyrightRegistration": {
+    "@id": "bf:CopyrightRegistration"
+  },
+  "CoverArt": {
+    "@id": "bf:CoverArt"
+  },
+  "CreatorCharacteristic": {
+    "@id": "bflc:CreatorCharacteristic"
+  },
+  "Dataset": {
+    "@id": "bf:Dataset"
+  },
+  "DemographicGroup": {
+    "@id": "bflc:DemographicGroup"
+  },
+  "Deprecated": {
+    "@id": "bflc:Deprecated"
+  },
+  "DescriptionAuthentication": {
+    "@id": "bf:DescriptionAuthentication"
+  },
+  "DescriptionConventions": {
+    "@id": "bf:DescriptionConventions"
+  },
+  "DescriptionLevel": {
+    "@id": "bf:DescriptionLevel"
+  },
+  "DigitalCharacteristic": {
+    "@id": "bf:DigitalCharacteristic"
+  },
+  "Dissertation": {
+    "@id": "bf:Dissertation"
+  },
+  "DissertationIdentifier": {
+    "@id": "bf:DissertationIdentifier"
+  },
+  "Distribution": {
+    "@id": "bf:Distribution"
+  },
+  "Doi": {
+    "@id": "bf:Doi"
+  },
+  "Ean": {
+    "@id": "bf:Ean"
+  },
+  "Eidr": {
+    "@id": "bf:Eidr"
+  },
+  "Electronic": {
+    "@id": "bf:Electronic"
+  },
+  "Emulsion": {
+    "@id": "bf:Emulsion"
+  },
+  "EncodedBitrate": {
+    "@id": "bf:EncodedBitrate"
+  },
+  "EncodingFormat": {
+    "@id": "bf:EncodingFormat"
+  },
+  "EncodingLevel": {
+    "@id": "bflc:EncodingLevel"
+  },
+  "Ensemble": {
+    "@id": "bf:Ensemble"
+  },
+  "Enumeration": {
+    "@id": "bf:Enumeration"
+  },
+  "EnumerationAndChronology": {
+    "@id": "bf:EnumerationAndChronology"
+  },
+  "Event": {
+    "@id": "bf:Event"
+  },
+  "Extent": {
+    "@id": "bf:Extent"
+  },
+  "Family": {
+    "@id": "bf:Family"
+  },
+  "FileSize": {
+    "@id": "bf:FileSize"
+  },
+  "FileType": {
+    "@id": "bf:FileType"
+  },
+  "Fingerprint": {
+    "@id": "bf:Fingerprint"
+  },
+  "FontSize": {
+    "@id": "bf:FontSize"
+  },
+  "Frequency": {
+    "@id": "bf:Frequency"
+  },
+  "Generation": {
+    "@id": "bf:Generation"
+  },
+  "GenerationProcess": {
+    "@id": "bf:GenerationProcess"
+  },
+  "GenreForm": {
+    "@id": "bf:GenreForm"
+  },
+  "GeographicCoverage": {
+    "@id": "bf:GeographicCoverage"
+  },
+  "GovernmentPubType": {
+    "@id": "bflc:GovernmentPubType"
+  },
+  "GrooveCharacteristic": {
+    "@id": "bf:GrooveCharacteristic"
+  },
+  "GrooveCutting": {
+    "@id": "bflc:GrooveCutting"
+  },
+  "Gtin14Number": {
+    "@id": "bf:Gtin14Number"
+  },
+  "Hdl": {
+    "@id": "bf:Hdl"
+  },
+  "Hub": {
+    "@id": "bf:Hub"
+  },
+  "Identifier": {
+    "@id": "bf:Identifier"
+  },
+  "Illustration": {
+    "@id": "bf:Illustration"
+  },
+  "ImageBitDepth": {
+    "@id": "bflc:ImageBitDepth"
+  },
+  "ImmediateAcquisition": {
+    "@id": "bf:ImmediateAcquisition"
+  },
+  "Instance": {
+    "@id": "bf:Instance"
+  },
+  "Integrating": {
+    "@id": "bf:Integrating"
+  },
+  "IntendedAudience": {
+    "@id": "bf:IntendedAudience"
+  },
+  "Isan": {
+    "@id": "bf:Isan"
+  },
+  "Isbn": {
+    "@id": "bf:Isbn"
+  },
+  "Ismn": {
+    "@id": "bf:Ismn"
+  },
+  "Isni": {
+    "@id": "bf:Isni"
+  },
+  "Iso": {
+    "@id": "bf:Iso"
+  },
+  "Isrc": {
+    "@id": "bf:Isrc"
+  },
+  "Issn": {
+    "@id": "bf:Issn"
+  },
+  "IssnL": {
+    "@id": "bf:IssnL"
+  },
+  "Issuance": {
+    "@id": "bf:Issuance"
+  },
+  "Istc": {
+    "@id": "bf:Istc"
+  },
+  "Iswc": {
+    "@id": "bf:Iswc"
+  },
+  "Item": {
+    "@id": "bf:Item"
+  },
+  "Jurisdiction": {
+    "@id": "bf:Jurisdiction"
+  },
+  "KeyTitle": {
+    "@id": "bf:KeyTitle"
+  },
+  "Kit": {
+    "@id": "bf:Kit"
+  },
+  "Language": {
+    "@id": "bf:Language"
+  },
+  "Layout": {
+    "@id": "bf:Layout"
+  },
+  "LcOverseasAcq": {
+    "@id": "bf:LcOverseasAcq"
+  },
+  "Lccn": {
+    "@id": "bf:Lccn"
+  },
+  "Local": {
+    "@id": "bf:Local"
+  },
+  "MachineModel": {
+    "@id": "bflc:MachineModel"
+  },
+  "Manufacture": {
+    "@id": "bf:Manufacture"
+  },
+  "Manuscript": {
+    "@id": "bf:Manuscript"
+  },
+  "Material": {
+    "@id": "bf:Material"
+  },
+  "MatrixNumber": {
+    "@id": "bf:MatrixNumber"
+  },
+  "Media": {
+    "@id": "bf:Media"
+  },
+  "Meeting": {
+    "@id": "bf:Meeting"
+  },
+  "MetadataLicensor": {
+    "@id": "bflc:MetadataLicensor"
+  },
+  "Microform": {
+    "@id": "bf:Microform"
+  },
+  "MixedMaterial": {
+    "@id": "bf:MixedMaterial"
+  },
+  "Modification": {
+    "@id": "bf:Modification"
+  },
+  "Monograph": {
+    "@id": "bf:Monograph"
+  },
+  "Mount": {
+    "@id": "bf:Mount"
+  },
+  "MovementNotation": {
+    "@id": "bf:MovementNotation"
+  },
+  "MovingImage": {
+    "@id": "bf:MovingImage"
+  },
+  "MovingImageTechnique": {
+    "@id": "bflc:MovingImageTechnique"
+  },
+  "Multimedia": {
+    "@id": "bf:Multimedia"
+  },
+  "MusicAudio": {
+    "@id": "bf:MusicAudio"
+  },
+  "MusicDistributorNumber": {
+    "@id": "bf:MusicDistributorNumber"
+  },
+  "MusicEnsemble": {
+    "@id": "bf:MusicEnsemble"
+  },
+  "MusicFormat": {
+    "@id": "bf:MusicFormat"
+  },
+  "MusicInstrument": {
+    "@id": "bf:MusicInstrument"
+  },
+  "MusicMedium": {
+    "@id": "bf:MusicMedium"
+  },
+  "MusicNotation": {
+    "@id": "bf:MusicNotation"
+  },
+  "MusicPlate": {
+    "@id": "bf:MusicPlate"
+  },
+  "MusicPublisherNumber": {
+    "@id": "bf:MusicPublisherNumber"
+  },
+  "MusicVoice": {
+    "@id": "bf:MusicVoice"
+  },
+  "Nbn": {
+    "@id": "bf:Nbn"
+  },
+  "NonMusicAudio": {
+    "@id": "bf:NonMusicAudio"
+  },
+  "NotatedMovement": {
+    "@id": "bf:NotatedMovement"
+  },
+  "NotatedMusic": {
+    "@id": "bf:NotatedMusic"
+  },
+  "Notation": {
+    "@id": "bf:Notation"
+  },
+  "Note": {
+    "@id": "bf:Note"
+  },
+  "Object": {
+    "@id": "bf:Object"
+  },
+  "ObjectCount": {
+    "@id": "bf:ObjectCount"
+  },
+  "OperatingSystem": {
+    "@id": "bflc:OperatingSystem"
+  },
+  "Organization": {
+    "@id": "bf:Organization"
+  },
+  "ParallelTitle": {
+    "@id": "bf:ParallelTitle"
+  },
+  "Person": {
+    "@id": "bf:Person"
+  },
+  "Place": {
+    "@id": "bf:Place"
+  },
+  "PlaybackChannels": {
+    "@id": "bf:PlaybackChannels"
+  },
+  "PlaybackCharacteristic": {
+    "@id": "bf:PlaybackCharacteristic"
+  },
+  "PlayingSpeed": {
+    "@id": "bf:PlayingSpeed"
+  },
+  "Polarity": {
+    "@id": "bf:Polarity"
+  },
+  "PostalRegistration": {
+    "@id": "bf:PostalRegistration"
+  },
+  "PresentationFormat": {
+    "@id": "bf:PresentationFormat"
+  },
+  "PrimaryContribution": {
+    "@id": "bflc:PrimaryContribution"
+  },
+  "Print": {
+    "@id": "bf:Print"
+  },
+  "Production": {
+    "@id": "bf:Production"
+  },
+  "ProductionMethod": {
+    "@id": "bf:ProductionMethod"
+  },
+  "ProgrammingLanguage": {
+    "@id": "bflc:ProgrammingLanguage"
+  },
+  "Projection": {
+    "@id": "bf:Projection"
+  },
+  "ProjectionCharacteristic": {
+    "@id": "bf:ProjectionCharacteristic"
+  },
+  "ProjectionSpeed": {
+    "@id": "bf:ProjectionSpeed"
+  },
+  "ProvisionActivity": {
+    "@id": "bf:ProvisionActivity"
+  },
+  "PubFrequency": {
+    "@id": "bf:PubFrequency"
+  },
+  "Publication": {
+    "@id": "bf:Publication"
+  },
+  "PublisherNumber": {
+    "@id": "bf:PublisherNumber"
+  },
+  "RecordingMedium": {
+    "@id": "bf:RecordingMedium"
+  },
+  "RecordingMethod": {
+    "@id": "bf:RecordingMethod"
+  },
+  "ReductionRatio": {
+    "@id": "bf:ReductionRatio"
+  },
+  "RegionalEncoding": {
+    "@id": "bf:RegionalEncoding"
+  },
+  "Relation": {
+    "@id": "bflc:Relation"
+  },
+  "Relationship": {
+    "@id": "bflc:Relationship"
+  },
+  "Relief": {
+    "@id": "bflc:Relief"
+  },
+  "ReportNumber": {
+    "@id": "bf:ReportNumber"
+  },
+  "Resolution": {
+    "@id": "bf:Resolution"
+  },
+  "RetentionPolicy": {
+    "@id": "bf:RetentionPolicy"
+  },
+  "Review": {
+    "@id": "bf:Review"
+  },
+  "Role": {
+    "@id": "bf:Role"
+  },
+  "Scale": {
+    "@id": "bf:Scale"
+  },
+  "Script": {
+    "@id": "bf:Script"
+  },
+  "SecondaryInstance": {
+    "@id": "bflc:SecondaryInstance"
+  },
+  "Serial": {
+    "@id": "bf:Serial"
+  },
+  "SerialPubType": {
+    "@id": "bflc:SerialPubType"
+  },
+  "Series": {
+    "@id": "bf:Series"
+  },
+  "SeriesAnalysis": {
+    "@id": "bflc:SeriesAnalysis"
+  },
+  "SeriesClassification": {
+    "@id": "bflc:SeriesClassification"
+  },
+  "SeriesNumbering": {
+    "@id": "bflc:SeriesNumbering"
+  },
+  "SeriesNumberingPeculiarities": {
+    "@id": "bflc:SeriesNumberingPeculiarities"
+  },
+  "SeriesProvider": {
+    "@id": "bflc:SeriesProvider"
+  },
+  "SeriesSequentialDesignation": {
+    "@id": "bflc:SeriesSequentialDesignation"
+  },
+  "SeriesTracing": {
+    "@id": "bflc:SeriesTracing"
+  },
+  "SeriesTreatment": {
+    "@id": "bflc:SeriesTreatment"
+  },
+  "ShelfMark": {
+    "@id": "bf:ShelfMark"
+  },
+  "ShelfMarkDdc": {
+    "@id": "bf:ShelfMarkDdc"
+  },
+  "ShelfMarkLcc": {
+    "@id": "bf:ShelfMarkLcc"
+  },
+  "ShelfMarkNlm": {
+    "@id": "bf:ShelfMarkNlm"
+  },
+  "ShelfMarkUdc": {
+    "@id": "bf:ShelfMarkUdc"
+  },
+  "Sici": {
+    "@id": "bf:Sici"
+  },
+  "SoundCharacteristic": {
+    "@id": "bf:SoundCharacteristic"
+  },
+  "SoundContent": {
+    "@id": "bf:SoundContent"
+  },
+  "Source": {
+    "@id": "bf:Source"
+  },
+  "Status": {
+    "@id": "bf:Status"
+  },
+  "StillImage": {
+    "@id": "bf:StillImage"
+  },
+  "StockNumber": {
+    "@id": "bf:StockNumber"
+  },
+  "Strn": {
+    "@id": "bf:Strn"
+  },
+  "StudyNumber": {
+    "@id": "bf:StudyNumber"
+  },
+  "Sublocation": {
+    "@id": "bf:Sublocation"
+  },
+  "Summary": {
+    "@id": "bf:Summary"
+  },
+  "SupplementaryContent": {
+    "@id": "bf:SupplementaryContent"
+  },
+  "SystemRequirement": {
+    "@id": "bf:SystemRequirement"
+  },
+  "TableOfContents": {
+    "@id": "bf:TableOfContents"
+  },
+  "Tactile": {
+    "@id": "bf:Tactile"
+  },
+  "TactileNotation": {
+    "@id": "bf:TactileNotation"
+  },
+  "TapeConfig": {
+    "@id": "bf:TapeConfig"
+  },
+  "Temporal": {
+    "@id": "bf:Temporal"
+  },
+  "Text": {
+    "@id": "bf:Text"
+  },
+  "Title": {
+    "@id": "bf:Title"
+  },
+  "Topic": {
+    "@id": "bf:Topic"
+  },
+  "TrackConfig": {
+    "@id": "bf:TrackConfig"
+  },
+  "TransliteratedTitle": {
+    "@id": "bflc:TransliteratedTitle"
+  },
+  "Uncontrolled": {
+    "@id": "bflc:Uncontrolled"
+  },
+  "Unit": {
+    "@id": "bf:Unit"
+  },
+  "Upc": {
+    "@id": "bf:Upc"
+  },
+  "Urn": {
+    "@id": "bf:Urn"
+  },
+  "UsageAndAccessPolicy": {
+    "@id": "bf:UsageAndAccessPolicy"
+  },
+  "UsePolicy": {
+    "@id": "bf:UsePolicy"
+  },
+  "VariantTitle": {
+    "@id": "bf:VariantTitle"
+  },
+  "VideoCharacteristic": {
+    "@id": "bf:VideoCharacteristic"
+  },
+  "VideoFormat": {
+    "@id": "bf:VideoFormat"
+  },
+  "VideoRecordingNumber": {
+    "@id": "bf:VideoRecordingNumber"
+  },
+  "Work": {
+    "@id": "bf:Work"
+  },
+  "aap": {
+    "@id": "bflc:aap"
+  },
+  "aap-normalized": {
+    "@id": "bflc:aap-normalized"
+  },
+  "absorbed": {
+    "@id": "bf:absorbed",
+    "@type": "@id"
+  },
+  "absorbedBy": {
+    "@id": "bf:absorbedBy",
+    "@type": "@id"
+  },
+  "accompaniedBy": {
+    "@id": "bf:accompaniedBy",
+    "@type": "@id"
+  },
+  "accompanies": {
+    "@id": "bf:accompanies",
+    "@type": "@id"
+  },
+  "acquisitionSource": {
+    "@id": "bf:acquisitionSource",
+    "@type": "@id"
+  },
+  "acquisitionTerms": {
+    "@id": "bf:acquisitionTerms"
+  },
+  "adminMetadata": {
+    "@id": "bf:adminMetadata",
+    "@type": "@id"
+  },
+  "adminMetadataFor": {
+    "@id": "bf:adminMetadataFor",
+    "@type": "@id"
+  },
+  "agent": {
+    "@id": "bf:agent",
+    "@type": "@id"
+  },
+  "agentOf": {
+    "@id": "bf:agentOf",
+    "@type": "@id"
+  },
+  "applicableInstitution": {
+    "@id": "bflc:applicableInstitution",
+    "@type": "@id"
+  },
+  "appliedMaterial": {
+    "@id": "bf:appliedMaterial",
+    "@type": "@id"
+  },
+  "appliedMaterialOf": {
+    "@id": "bf:appliedMaterialOf",
+    "@type": "@id"
+  },
+  "appliesTo": {
+    "@id": "bflc:appliesTo",
+    "@type": "@id"
+  },
+  "arrangement": {
+    "@id": "bf:arrangement",
+    "@type": "@id"
+  },
+  "arrangementOf": {
+    "@id": "bf:arrangementOf",
+    "@type": "@id"
+  },
+  "ascensionAndDeclination": {
+    "@id": "bf:ascensionAndDeclination"
+  },
+  "aspectRatio": {
+    "@id": "bf:aspectRatio",
+    "@type": "@id"
+  },
+  "assigner": {
+    "@id": "bf:assigner",
+    "@type": "@id"
+  },
+  "awards": {
+    "@id": "bf:awards"
+  },
+  "baseMaterial": {
+    "@id": "bf:baseMaterial",
+    "@type": "@id"
+  },
+  "baseMaterialOf": {
+    "@id": "bf:baseMaterialOf",
+    "@type": "@id"
+  },
+  "binding": {
+    "@id": "bf:binding",
+    "@type": "@id"
+  },
+  "bookFormat": {
+    "@id": "bf:bookFormat",
+    "@type": "@id"
+  },
+  "capture": {
+    "@id": "bf:capture",
+    "@type": "@id"
+  },
+  "carrier": {
+    "@id": "bf:carrier",
+    "@type": "@id"
+  },
+  "cartographicAttributes": {
+    "@id": "bf:cartographicAttributes",
+    "@type": "@id"
+  },
+  "catalogerId": {
+    "@id": "bflc:catalogerId"
+  },
+  "changeDate": {
+    "@id": "bf:changeDate",
+    "@type": "xsd:dateTime"
+  },
+  "classification": {
+    "@id": "bf:classification",
+    "@type": "@id"
+  },
+  "classificationPortion": {
+    "@id": "bf:classificationPortion"
+  },
+  "code": {
+    "@id": "bf:code"
+  },
+  "collectionArrangement": {
+    "@id": "bf:collectionArrangement",
+    "@type": "@id"
+  },
+  "collectionArrangementOf": {
+    "@id": "bf:collectionArrangementOf",
+    "@type": "@id"
+  },
+  "collectionOrganization": {
+    "@id": "bf:collectionOrganization"
+  },
+  "colorContent": {
+    "@id": "bf:colorContent",
+    "@type": "@id"
+  },
+  "content": {
+    "@id": "bf:content",
+    "@type": "@id"
+  },
+  "contentAccessibility": {
+    "@id": "bf:contentAccessibility",
+    "@type": "@id"
+  },
+  "continuedBy": {
+    "@id": "bf:continuedBy",
+    "@type": "@id"
+  },
+  "continuedInPartBy": {
+    "@id": "bf:continuedInPartBy",
+    "@type": "@id"
+  },
+  "continues": {
+    "@id": "bf:continues",
+    "@type": "@id"
+  },
+  "continuesInPart": {
+    "@id": "bf:continuesInPart",
+    "@type": "@id"
+  },
+  "contribution": {
+    "@id": "bf:contribution",
+    "@type": "@id"
+  },
+  "contributionOf": {
+    "@id": "bf:contributionOf",
+    "@type": "@id"
+  },
+  "coordinates": {
+    "@id": "bf:coordinates"
+  },
+  "copyrightDate": {
+    "@id": "bf:copyrightDate"
+  },
+  "copyrightRegistration": {
+    "@id": "bf:copyrightRegistration",
+    "@type": "@id"
+  },
+  "count": {
+    "@id": "bf:count"
+  },
+  "coverArt": {
+    "@id": "bf:coverArt",
+    "@type": "@id"
+  },
+  "creationDate": {
+    "@id": "bf:creationDate",
+    "@type": "xsd:date"
+  },
+  "creatorCharacteristic": {
+    "@id": "bflc:creatorCharacteristic",
+    "@type": "@id"
+  },
+  "credits": {
+    "@id": "bf:credits"
+  },
+  "custodialHistory": {
+    "@id": "bf:custodialHistory"
+  },
+  "dataSource": {
+    "@id": "bf:dataSource",
+    "@type": "@id"
+  },
+  "date": {
+    "@id": "bf:date"
+  },
+  "degree": {
+    "@id": "bf:degree"
+  },
+  "demographicGroup": {
+    "@id": "bflc:demographicGroup",
+    "@type": "@id"
+  },
+  "derivativeOf": {
+    "@id": "bf:derivativeOf",
+    "@type": "@id"
+  },
+  "derivedFrom": {
+    "@id": "bf:derivedFrom",
+    "@type": "@id"
+  },
+  "descriptionAuthentication": {
+    "@id": "bf:descriptionAuthentication",
+    "@type": "@id"
+  },
+  "descriptionConventions": {
+    "@id": "bf:descriptionConventions",
+    "@type": "@id"
+  },
+  "descriptionLanguage": {
+    "@id": "bf:descriptionLanguage",
+    "@type": "@id"
+  },
+  "descriptionLevel": {
+    "@id": "bf:descriptionLevel",
+    "@type": "@id"
+  },
+  "descriptionModifier": {
+    "@id": "bf:descriptionModifier",
+    "@type": "@id"
+  },
+  "digitalCharacteristic": {
+    "@id": "bf:digitalCharacteristic",
+    "@type": "@id"
+  },
+  "dimensions": {
+    "@id": "bf:dimensions"
+  },
+  "dissertation": {
+    "@id": "bf:dissertation",
+    "@type": "@id"
+  },
+  "distributionStatement": {
+    "@id": "bflc:distributionStatement"
+  },
+  "duration": {
+    "@id": "bf:duration"
+  },
+  "edition": {
+    "@id": "bf:edition"
+  },
+  "editionEnumeration": {
+    "@id": "bf:editionEnumeration"
+  },
+  "editionStatement": {
+    "@id": "bf:editionStatement"
+  },
+  "electronicLocator": {
+    "@id": "bf:electronicLocator",
+    "@type": "@id"
+  },
+  "emulsion": {
+    "@id": "bf:emulsion",
+    "@type": "@id"
+  },
+  "encodingLevel": {
+    "@id": "bflc:encodingLevel",
+    "@type": "@id"
+  },
+  "ensemble": {
+    "@id": "bf:ensemble",
+    "@type": "@id"
+  },
+  "ensembleType": {
+    "@id": "bf:ensembleType"
+  },
+  "enumerationAndChronology": {
+    "@id": "bf:enumerationAndChronology",
+    "@type": "@id"
+  },
+  "equinox": {
+    "@id": "bf:equinox"
+  },
+  "eventContent": {
+    "@id": "bf:eventContent",
+    "@type": "@id"
+  },
+  "eventContentOf": {
+    "@id": "bf:eventContentOf",
+    "@type": "@id"
+  },
+  "exclusionGRing": {
+    "@id": "bf:exclusionGRing"
+  },
+  "expressionOf": {
+    "@id": "bf:expressionOf",
+    "@type": "@id"
+  },
+  "extent": {
+    "@id": "bf:extent",
+    "@type": "@id"
+  },
+  "findingAid": {
+    "@id": "bf:findingAid",
+    "@type": "@id"
+  },
+  "findingAidOf": {
+    "@id": "bf:findingAidOf",
+    "@type": "@id"
+  },
+  "firstIssue": {
+    "@id": "bf:firstIssue"
+  },
+  "fontSize": {
+    "@id": "bf:fontSize",
+    "@type": "@id"
+  },
+  "frequency": {
+    "@id": "bf:frequency",
+    "@type": "@id"
+  },
+  "generation": {
+    "@id": "bf:generation",
+    "@type": "@id"
+  },
+  "generationDate": {
+    "@id": "bf:generationDate",
+    "@type": "xsd:dateTime"
+  },
+  "generationProcess": {
+    "@id": "bf:generationProcess",
+    "@type": "@id"
+  },
+  "genreForm": {
+    "@id": "bf:genreForm",
+    "@type": "@id"
+  },
+  "geographicCoverage": {
+    "@id": "bf:geographicCoverage",
+    "@type": "@id"
+  },
+  "governmentPubType": {
+    "@id": "bflc:governmentPubType",
+    "@type": "@id"
+  },
+  "grantingInstitution": {
+    "@id": "bf:grantingInstitution",
+    "@type": "@id"
+  },
+  "hasDerivative": {
+    "@id": "bf:hasDerivative",
+    "@type": "@id"
+  },
+  "hasExpression": {
+    "@id": "bf:hasExpression",
+    "@type": "@id"
+  },
+  "hasInstance": {
+    "@id": "bf:hasInstance",
+    "@type": "@id"
+  },
+  "hasItem": {
+    "@id": "bf:hasItem",
+    "@type": "@id"
+  },
+  "hasPart": {
+    "@id": "bf:hasPart",
+    "@type": "@id"
+  },
+  "hasReproduction": {
+    "@id": "bf:hasReproduction",
+    "@type": "@id"
+  },
+  "hasSeries": {
+    "@id": "bf:hasSeries",
+    "@type": "@id"
+  },
+  "hasSubseries": {
+    "@id": "bf:hasSubseries",
+    "@type": "@id"
+  },
+  "heldBy": {
+    "@id": "bf:heldBy",
+    "@type": "@id"
+  },
+  "hierarchicalLevel": {
+    "@id": "bf:hierarchicalLevel"
+  },
+  "historyOfWork": {
+    "@id": "bf:historyOfWork"
+  },
+  "identifiedBy": {
+    "@id": "bf:identifiedBy",
+    "@type": "@id"
+  },
+  "identifies": {
+    "@id": "bf:identifies",
+    "@type": "@id"
+  },
+  "illustrativeContent": {
+    "@id": "bf:illustrativeContent",
+    "@type": "@id"
+  },
+  "immediateAcquisition": {
+    "@id": "bf:immediateAcquisition",
+    "@type": "@id"
+  },
+  "index": {
+    "@id": "bf:index",
+    "@type": "@id"
+  },
+  "indexOf": {
+    "@id": "bf:indexOf",
+    "@type": "@id"
+  },
+  "indexedIn": {
+    "@id": "bflc:indexedIn",
+    "@type": "@id"
+  },
+  "instanceOf": {
+    "@id": "bf:instanceOf",
+    "@type": "@id"
+  },
+  "instrument": {
+    "@id": "bf:instrument",
+    "@type": "@id"
+  },
+  "instrumentalType": {
+    "@id": "bf:instrumentalType"
+  },
+  "intendedAudience": {
+    "@id": "bf:intendedAudience",
+    "@type": "@id"
+  },
+  "issuance": {
+    "@id": "bf:issuance",
+    "@type": "@id"
+  },
+  "itemOf": {
+    "@id": "bf:itemOf",
+    "@type": "@id"
+  },
+  "itemPortion": {
+    "@id": "bf:itemPortion"
+  },
+  "language": {
+    "@id": "bf:language",
+    "@type": "@id"
+  },
+  "lastIssue": {
+    "@id": "bf:lastIssue"
+  },
+  "layout": {
+    "@id": "bf:layout",
+    "@type": "@id"
+  },
+  "legalDate": {
+    "@id": "bf:legalDate"
+  },
+  "mainTitle": {
+    "@id": "bf:mainTitle"
+  },
+  "manufactureStatement": {
+    "@id": "bflc:manufactureStatement"
+  },
+  "marcKey": {
+    "@id": "bflc:marcKey"
+  },
+  "material": {
+    "@id": "bf:material",
+    "@type": "@id"
+  },
+  "materialOf": {
+    "@id": "bf:materialOf",
+    "@type": "@id"
+  },
+  "media": {
+    "@id": "bf:media",
+    "@type": "@id"
+  },
+  "mergedToForm": {
+    "@id": "bf:mergedToForm",
+    "@type": "@id"
+  },
+  "mergerOf": {
+    "@id": "bf:mergerOf",
+    "@type": "@id"
+  },
+  "metadataLicensor": {
+    "@id": "bflc:metadataLicensor",
+    "@type": "@id"
+  },
+  "mount": {
+    "@id": "bf:mount",
+    "@type": "@id"
+  },
+  "movingImageTechnique": {
+    "@id": "bflc:movingImageTechnique",
+    "@type": "@id"
+  },
+  "musicFormat": {
+    "@id": "bf:musicFormat",
+    "@type": "@id"
+  },
+  "musicKey": {
+    "@id": "bf:musicKey"
+  },
+  "musicMedium": {
+    "@id": "bf:musicMedium",
+    "@type": "@id"
+  },
+  "musicOpusNumber": {
+    "@id": "bf:musicOpusNumber"
+  },
+  "musicSerialNumber": {
+    "@id": "bf:musicSerialNumber"
+  },
+  "musicThematicNumber": {
+    "@id": "bf:musicThematicNumber"
+  },
+  "name00MarcKey": {
+    "@id": "bflc:name00MarcKey"
+  },
+  "name00MatchKey": {
+    "@id": "bflc:name00MatchKey"
+  },
+  "name10MarcKey": {
+    "@id": "bflc:name10MarcKey"
+  },
+  "name10MatchKey": {
+    "@id": "bflc:name10MatchKey"
+  },
+  "name11MarcKey": {
+    "@id": "bflc:name11MarcKey"
+  },
+  "name11MatchKey": {
+    "@id": "bflc:name11MatchKey"
+  },
+  "natureOfContent": {
+    "@id": "bf:natureOfContent"
+  },
+  "nonSortNum": {
+    "@id": "bflc:nonSortNum"
+  },
+  "notation": {
+    "@id": "bf:notation",
+    "@type": "@id"
+  },
+  "note": {
+    "@id": "bf:note",
+    "@type": "@id"
+  },
+  "noteFor": {
+    "@id": "bf:noteFor",
+    "@type": "@id"
+  },
+  "noteType": {
+    "@id": "bf:noteType"
+  },
+  "originDate": {
+    "@id": "bf:originDate"
+  },
+  "originPlace": {
+    "@id": "bf:originPlace",
+    "@type": "@id"
+  },
+  "originalVersion": {
+    "@id": "bf:originalVersion",
+    "@type": "@id"
+  },
+  "originalVersionOf": {
+    "@id": "bf:originalVersionOf",
+    "@type": "@id"
+  },
+  "outerGRing": {
+    "@id": "bf:outerGRing"
+  },
+  "part": {
+    "@id": "bf:part"
+  },
+  "partName": {
+    "@id": "bf:partName"
+  },
+  "partNumber": {
+    "@id": "bf:partNumber"
+  },
+  "partOf": {
+    "@id": "bf:partOf",
+    "@type": "@id"
+  },
+  "pattern": {
+    "@id": "bf:pattern"
+  },
+  "physicalLocation": {
+    "@id": "bf:physicalLocation"
+  },
+  "place": {
+    "@id": "bf:place",
+    "@type": "@id"
+  },
+  "polarity": {
+    "@id": "bf:polarity",
+    "@type": "@id"
+  },
+  "precededBy": {
+    "@id": "bf:precededBy",
+    "@type": "@id"
+  },
+  "preferredCitation": {
+    "@id": "bf:preferredCitation"
+  },
+  "primaryContributorName00MatchKey": {
+    "@id": "bflc:primaryContributorName00MatchKey"
+  },
+  "primaryContributorName10MatchKey": {
+    "@id": "bflc:primaryContributorName10MatchKey"
+  },
+  "primaryContributorName11MatchKey": {
+    "@id": "bflc:primaryContributorName11MatchKey"
+  },
+  "procInfo": {
+    "@id": "bflc:procInfo"
+  },
+  "productionMethod": {
+    "@id": "bf:productionMethod",
+    "@type": "@id"
+  },
+  "productionStatement": {
+    "@id": "bflc:productionStatement"
+  },
+  "profile": {
+    "@id": "bflc:profile"
+  },
+  "projectedProvisionDate": {
+    "@id": "bflc:projectedProvisionDate",
+    "@type": "@id"
+  },
+  "projection": {
+    "@id": "bf:projection",
+    "@type": "@id"
+  },
+  "projectionCharacteristic": {
+    "@id": "bf:projectionCharacteristic",
+    "@type": "@id"
+  },
+  "provisionActivity": {
+    "@id": "bf:provisionActivity",
+    "@type": "@id"
+  },
+  "provisionActivityStatement": {
+    "@id": "bf:provisionActivityStatement"
+  },
+  "pubFrequency": {
+    "@id": "bf:pubFrequency",
+    "@type": "@id"
+  },
+  "publicationStatement": {
+    "@id": "bflc:publicationStatement"
+  },
+  "qualifier": {
+    "@id": "bf:qualifier"
+  },
+  "readMarc382": {
+    "@id": "bflc:readMarc382",
+    "@type": "@id"
+  },
+  "reductionRatio": {
+    "@id": "bf:reductionRatio",
+    "@type": "@id"
+  },
+  "referencedBy": {
+    "@id": "bf:referencedBy",
+    "@type": "@id"
+  },
+  "references": {
+    "@id": "bf:references",
+    "@type": "@id"
+  },
+  "relation": {
+    "@id": "bflc:relation",
+    "@type": "@id"
+  },
+  "relationship": {
+    "@id": "bflc:relationship",
+    "@type": "@id"
+  },
+  "relief": {
+    "@id": "bflc:relief",
+    "@type": "@id"
+  },
+  "replacedBy": {
+    "@id": "bf:replacedBy",
+    "@type": "@id"
+  },
+  "replacementOf": {
+    "@id": "bf:replacementOf",
+    "@type": "@id"
+  },
+  "reproductionOf": {
+    "@id": "bf:reproductionOf",
+    "@type": "@id"
+  },
+  "responsibilityStatement": {
+    "@id": "bf:responsibilityStatement"
+  },
+  "review": {
+    "@id": "bf:review",
+    "@type": "@id"
+  },
+  "role": {
+    "@id": "bf:role",
+    "@type": "@id"
+  },
+  "scale": {
+    "@id": "bf:scale",
+    "@type": "@id"
+  },
+  "schedulePart": {
+    "@id": "bf:schedulePart"
+  },
+  "separatedFrom": {
+    "@id": "bf:separatedFrom",
+    "@type": "@id"
+  },
+  "serialPubType": {
+    "@id": "bflc:serialPubType",
+    "@type": "@id"
+  },
+  "seriesEnumeration": {
+    "@id": "bf:seriesEnumeration"
+  },
+  "seriesOf": {
+    "@id": "bf:seriesOf",
+    "@type": "@id"
+  },
+  "seriesStatement": {
+    "@id": "bf:seriesStatement"
+  },
+  "seriesTreatment": {
+    "@id": "bflc:seriesTreatment",
+    "@type": "@id"
+  },
+  "shelfMark": {
+    "@id": "bf:shelfMark",
+    "@type": "@id"
+  },
+  "simpleAgent": {
+    "@id": "bflc:simpleAgent"
+  },
+  "simpleDate": {
+    "@id": "bflc:simpleDate"
+  },
+  "simplePlace": {
+    "@id": "bflc:simplePlace"
+  },
+  "soundCharacteristic": {
+    "@id": "bf:soundCharacteristic",
+    "@type": "@id"
+  },
+  "soundContent": {
+    "@id": "bf:soundContent",
+    "@type": "@id"
+  },
+  "source": {
+    "@id": "bf:source",
+    "@type": "@id"
+  },
+  "spanEnd": {
+    "@id": "bf:spanEnd"
+  },
+  "splitInto": {
+    "@id": "bf:splitInto",
+    "@type": "@id"
+  },
+  "status": {
+    "@id": "bf:status",
+    "@type": "@id"
+  },
+  "subject": {
+    "@id": "bf:subject",
+    "@type": "@id"
+  },
+  "subjectOf": {
+    "@id": "bf:subjectOf",
+    "@type": "@id"
+  },
+  "sublocation": {
+    "@id": "bf:sublocation",
+    "@type": "@id"
+  },
+  "subseriesEnumeration": {
+    "@id": "bf:subseriesEnumeration"
+  },
+  "subseriesOf": {
+    "@id": "bf:subseriesOf",
+    "@type": "@id"
+  },
+  "subseriesStatement": {
+    "@id": "bf:subseriesStatement"
+  },
+  "subtitle": {
+    "@id": "bf:subtitle"
+  },
+  "succeededBy": {
+    "@id": "bf:succeededBy",
+    "@type": "@id"
+  },
+  "summary": {
+    "@id": "bf:summary",
+    "@type": "@id"
+  },
+  "supplement": {
+    "@id": "bf:supplement",
+    "@type": "@id"
+  },
+  "supplementTo": {
+    "@id": "bf:supplementTo",
+    "@type": "@id"
+  },
+  "supplementaryContent": {
+    "@id": "bf:supplementaryContent",
+    "@type": "@id"
+  },
+  "systemRequirement": {
+    "@id": "bf:systemRequirement",
+    "@type": "@id"
+  },
+  "table": {
+    "@id": "bf:table"
+  },
+  "tableOfContents": {
+    "@id": "bf:tableOfContents",
+    "@type": "@id"
+  },
+  "tableSeq": {
+    "@id": "bf:tableSeq"
+  },
+  "temporalCoverage": {
+    "@id": "bf:temporalCoverage"
+  },
+  "title": {
+    "@id": "bf:title",
+    "@type": "@id"
+  },
+  "title00MarcKey": {
+    "@id": "bflc:title00MarcKey"
+  },
+  "title00MatchKey": {
+    "@id": "bflc:title00MatchKey"
+  },
+  "title10MarcKey": {
+    "@id": "bflc:title10MarcKey"
+  },
+  "title10MatchKey": {
+    "@id": "bflc:title10MatchKey"
+  },
+  "title11MarcKey": {
+    "@id": "bflc:title11MarcKey"
+  },
+  "title11MatchKey": {
+    "@id": "bflc:title11MatchKey"
+  },
+  "title30MarcKey": {
+    "@id": "bflc:title30MarcKey"
+  },
+  "title30MatchKey": {
+    "@id": "bflc:title30MatchKey"
+  },
+  "title40MarcKey": {
+    "@id": "bflc:title40MarcKey"
+  },
+  "title40MatchKey": {
+    "@id": "bflc:title40MatchKey"
+  },
+  "titleOf": {
+    "@id": "bf:titleOf",
+    "@type": "@id"
+  },
+  "titleSortKey": {
+    "@id": "bflc:titleSortKey"
+  },
+  "translation": {
+    "@id": "bf:translation",
+    "@type": "@id"
+  },
+  "translationOf": {
+    "@id": "bf:translationOf",
+    "@type": "@id"
+  },
+  "unit": {
+    "@id": "bf:unit",
+    "@type": "@id"
+  },
+  "usageAndAccessPolicy": {
+    "@id": "bf:usageAndAccessPolicy",
+    "@type": "@id"
+  },
+  "validDate": {
+    "@id": "bf:validDate"
+  },
+  "variantType": {
+    "@id": "bf:variantType"
+  },
+  "version": {
+    "@id": "bf:version"
+  },
+  "videoCharacteristic": {
+    "@id": "bf:videoCharacteristic",
+    "@type": "@id"
+  },
+  "voice": {
+    "@id": "bf:voice",
+    "@type": "@id"
+  },
+  "voiceType": {
+    "@id": "bf:voiceType"
+  }
+  }
+}

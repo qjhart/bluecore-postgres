@@ -1,0 +1,17 @@
+services:
+  db:
+    image: localhost/bluecore/db:latest
+    build: ./db
+    restart: always
+    environment:
+      POSTGRES_DB: bluecore
+      POSTGRES_PASSWORD: bluecore
+    volumes:
+      - ./db/initdb.d:/docker-entrypoint-initdb.d
+      - db:/var/lib/postgresql/data
+    ports:
+      - ${PORT:-5432}:5432
+
+volumes:
+  db:
+    driver: local

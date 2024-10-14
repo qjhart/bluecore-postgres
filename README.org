@@ -1,0 +1,34 @@
+
+* RDF implementation
+
+  My first try at an implementation will use [[https://github.com/rdf-ext][rdf-ext]].  This is because it has
+  jsonld parser, sparql and shacl, and I hope that we have an easier time
+  integrating it into a postgres database as a function.  For now, however, I'm
+  going to use an external function for loading all this.
+
+* Context file.
+
+  Get the Objects with:
+
+  #+begin_src bash
+    http http://localhost:8080/bibframe/query Content-Type:application/sparql-query <<<'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX bibframe: <http://id.loc.gov/ontologies/bibframe/>
+    PREFIX bflc: <http://id.loc.gov/ontologies/bflc/>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    select ?l ?id ?p
+    WHERE {
+      values (?type ?id) {
+        ( owl:Class "" )
+        ( owl:DatatypeProperty "" )
+        ( owl:ObjectProperty "@id" )
+      }
+      ?s a ?type
+      values (?v ?p) {
+        (bibframe: "bf")
+        (bflc: "blfc")
+      }
+      filter(regex(str(?s),str(?v)))
+      bind(replace(str(?s),str(?v),"") as ?l)
+      } order by ?l' | jq '[.results.bindings[] | {"key":(.l.value),"value":{"@id":((.p.value)+":"+(.l.value)),"@type":(.id.value)}}] | from_entries' >> context.jsonld
+  #+end_src
