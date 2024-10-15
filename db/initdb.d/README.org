@@ -29,7 +29,7 @@
       iri uri,
       chk uuid not null,
       label text,
-      obj jsonb,
+      jsonld jsonb,
       unique(iri,chk)
       );
 
@@ -43,7 +43,7 @@
 
     create table if not exists iri_type (
       iri_type_id serial primary key,
-      iri_id references iri,
+      iri_id serial references iri,
       type_id uri,
       unique(iri_id,type_id)
       );
@@ -54,7 +54,7 @@
       );
 
     create table if not exists iri_local (
-      iri_id serial references iri
+      iri_id serial references iri,
       use_id serial references iri(iri_id),
       primary key(iri_id,use_id)
       );

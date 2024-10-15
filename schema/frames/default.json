@@ -2,7 +2,7 @@
   "@context": [
     "context.jsonld"
   ],
-  "@type": ["Instance","GovernmentPubType", "bf:Work"],
+  "@type": ["Instance"],
   "@embed": "@always",
   "@explicit": false,
   "@omitDefault": true,

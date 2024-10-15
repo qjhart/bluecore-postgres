@@ -1,14 +1,15 @@
 {
   "@context": {
     "@vocab": "http://id.loc.gov/ontologies/bibframe/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "bf": "http://id.loc.gov/ontologies/bibframe/",
-    "lc_instance": "http://id.loc.gov/resources/instances/",
-    "lc_work":"http://id.loc.gov/resources/works/",
-    "lc_hub":"http://id.loc.gov/resources/hubs/",
-    "lc_vocabulary":"http://id.loc.gov/vocabulary/",
     "bflc": "http://id.loc.gov/ontologies/bflc/",
+    "lc_hub":"http://id.loc.gov/resources/hubs/",
+    "lc_instance": "http://id.loc.gov/resources/instances/",
+    "lc_vocabulary":"http://id.loc.gov/vocabulary/",
+    "lc_work":"http://id.loc.gov/resources/works/",
+    "org": "http://id.loc.gov/datatypes/orgs/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
   "AbbreviatedTitle": {
     "@id": "bf:AbbreviatedTitle"
   },
@@ -1173,6 +1174,9 @@
   "itemPortion": {
     "@id": "bf:itemPortion"
   },
+    "label": {
+      "@id": "rdfs:label"
+    },
   "language": {
     "@id": "bf:language",
     "@type": "@id"
