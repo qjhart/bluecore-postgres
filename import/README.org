@@ -1,0 +1,11 @@
+* Import
+
+  You can import the LC data dump files with:
+
+  #+begin_src bash
+    node import/index.js ../data/11*.jsonld
+  #+end_src
+
+  Right now, it's pretty slow, like 5min for 1000 records.  Part of that is the
+  indexed are already in place so are getting updated a lodt,  and part is the
+  Linked data processing, but I need to profile it better.
