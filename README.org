@@ -1,34 +1,45 @@
+* Blue core postgres implementation
 
-* RDF implementation
+  This project has an postgres schema for holding bibframe entities.  The schema
+  tries to maintain relational style forms (columns, joins, etc.), while
+  supporting extensible (to a point) linked data for each record.
 
-  My first try at an implementation will use [[https://github.com/rdf-ext][rdf-ext]].  This is because it has
-  jsonld parser, sparql and shacl, and I hope that we have an easier time
-  integrating it into a postgres database as a function.  For now, however, I'm
-  going to use an external function for loading all this.
+  Also, based on input from the metadata community, (ie accept as much as
+  possible, and only warn on inconsistancies), the schema allows for multiple
+  definitions for external subjects. However methods are in place to canonize
+  records as well.
 
-* Context file.
+** Features
 
-  Get the Objects with:
 
-  #+begin_src bash
-    http http://localhost:8080/bibframe/query Content-Type:application/sparql-query <<<'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    PREFIX bibframe: <http://id.loc.gov/ontologies/bibframe/>
-    PREFIX bflc: <http://id.loc.gov/ontologies/bflc/>
-    PREFIX owl: <http://www.w3.org/2002/07/owl#>
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    select ?l ?id ?p
-    WHERE {
-      values (?type ?id) {
-        ( owl:Class "" )
-        ( owl:DatatypeProperty "" )
-        ( owl:ObjectProperty "@id" )
-      }
-      ?s a ?type
-      values (?v ?p) {
-        (bibframe: "bf")
-        (bflc: "blfc")
-      }
-      filter(regex(str(?s),str(?v)))
-      bind(replace(str(?s),str(?v),"") as ?l)
-      } order by ?l' | jq '[.results.bindings[] | {"key":(.l.value),"value":{"@id":((.p.value)+":"+(.l.value)),"@type":(.id.value)}}] | from_entries' >> context.jsonld
-  #+end_src
+*** Standardized checksums
+    Subject should have standard checksums that can be calculated by outside
+    entities.  These also be used for transactions to check that items haven't
+    been changed up updates for example.
+
+*** Standard subject storage
+    Subjects should be stored in a standard method regardless of the way they
+    were submitted, for example a record that includes labels on named nodes,
+    should be the same as a record with the same links but no labels.
+
+
+*** Data assimilation
+    It should be easy to construct simple graphes of multiple subjects
+
+*** Subject canonization
+    There should be a method where a subjects can be cannonized to a standard
+    description for all namedNodes in their description.
+
+
+*** Specialized classes
+    Instances and works should have their own specialized tables and indices to
+    speed up processsing
+
+
+
+** RDF implementation
+
+   My first try at an implementation will use [[https://github.com/rdf-ext][rdf-ext]].  This is because it has
+   jsonld parser, sparql and shacl, and I hope that we have an easier time
+   integrating it into a postgres database as a function.  For now, however, I'm
+   going to use an external function for loading all this.

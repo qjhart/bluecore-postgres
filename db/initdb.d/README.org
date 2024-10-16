@@ -2,11 +2,19 @@
 #+PROPERTY: header-args:sql :engine postgresql :cmdline "service=bluecore" :tangle yes
 
   This schema is designed to allow for quick relational access to key components
-  of the bibframe metadata while maintaining fragments
+  of the bibframe metadata while maintaining fragments.
+
+  There is no system-wide uri for postgres, so I am using an external plugin.
+  This is included in the Dockerfile for docker-compose style running.  This
+  does some verification that the uri is valid.
 
   #+begin_src sql
     create extension uri;
   #+end_src
+
+  In anticipation of two things, different agents wanting their own schema, and
+  a potential postgrest (REST API) interface, that uses the public schema, I'm
+  moving the blue-core tables into their own schema.
 
     #+begin_src sql
     drop schema if exists bc cascade;
@@ -14,57 +22,102 @@
     alter database :DBNAME set search_path to bc,public;
   #+end_src
 
-  #+RESULTS:
-  | DROP SCHEMA    |
-  |----------------|
-  | CREATE SCHEMA  |
-  | ALTER DATABASE |
+** Tables
+
+   These tables are not named =iri= because the uri extension doesn't support
+   iris. In addition, you will see that we use the uuid datatype for our
+   checksum, even though use use the ~md5()~ function to generate them. see [[https://dba.stackexchange.com/questions/115271/what-is-the-optimal-data-type-for-an-md5-field][md5
+   as hash function]].
+
+*** named table
+
+    These tables are very specific to storing works and instances.  These tables
+    inherit from the =named= table, so that that table stores all uris in the
+    sytem. This allows for different columns (eg. title) to be added.
+
+    An alternate method would have only the named table, and then join extra
+    tables for these search components.
+
+    The =chk= value is the md5() from the json-ld canonized format.  This should
+    be consistent for any outside application, to calculate.  The =chk= value
+    can be used in http updates, as an =etag=, to prevent users from trying to
+    update a record that has already been updated.
+
+    Based on both the LC input data, and some requests from the metadata group,
+    we allow different versions of uri's in the system.  These are kind of like
+    seperate linked graphs for each instance/work.
+
+    When new versions of an =instance/work= are added, we could delete the old
+    one, or start to create versions on these.  Versioning would require some
+    additional table columns.
+
+    The =label= can be used to quickly build small, label only inputs for the
+    uri's when added to another record.
+
+    The =jsonb= is linked data, but it has been framed, so that one can more
+    easily build postgres indexes on it if required.
+
+     #+begin_src sql
+       create table if not exists named (
+         named_id serial primary key,
+         uri uri,
+         chk uuid not null,
+         label text,
+         jsonld jsonb,
+         unique(uri,chk)
+         );
+
+       create table if not exists work (
+         title text
+         ) inherits (named);
+
+       create table if not exists instance (
+         title text
+         ) inherits (named);
+     #+end_src
+
+*** named_type
+     The =named_type= table is just a conveince table for quick access to the
+     types.  Currently, there is a disconnect between the jsonb (using framed
+     types) and this table (using uris as types).  Not sure which is better.
+
+     #+begin_src sql
+       create table if not exists named_type (
+         named_type_id serial primary key,
+         named_id serial references named,
+         "type" uri,
+         unique(named_id,"type")
+         );
+     #+end_src
+
+*** named_use
+
+    The =named_use= table collects all namedNode used by any other =named=.  This
+    allows one to build a more complete document from the needed items.  We use
+    the =uri=, and =chk= for the other tables, so that it's a bit easier to
+    switch to the cannonical verison.  Also, if the added uri doesn't include
+    *any* information about the named node, we can set the uuid to null, and
+    know to use the canonical version.
+
+     #+begin_src sql
+       create table if not exists named_use (
+         named_id serial references named,
+         uri uri not null,
+         chk uuid,
+         primary key(named_id,uri)
+       );
+     #+end_src
 
 
-  [[https://dba.stackexchange.com/questions/115271/what-is-the-optimal-data-type-for-an-md5-field][md5 as hash function]]
+*** named_canonical
 
-  #+begin_src sql
-    create table if not exists iri (
-      iri_id serial primary key,
-      iri uri,
-      chk uuid not null,
-      label text,
-      jsonld jsonb,
-      unique(iri,chk)
-      );
+    The above tables allow one to disconnect from the locally defined
+    namedNodes, and instead use the canonical version.  How that's decided among
+    multiple choices it TBD.
 
-    create table if not exists work (
-      title text
-      ) inherits (iri);
-
-    create table if not exists instance (
-      title text
-      ) inherits (iri);
-
-    create table if not exists iri_type (
-      iri_type_id serial primary key,
-      iri_id serial references iri,
-      type_id uri,
-      unique(iri_id,type_id)
-      );
-
-    create table if not exists iri_canonical(
-      iri uri primary key,
-      iri_id serial references iri
-      );
-
-    create table if not exists iri_local (
-      iri_id serial references iri,
-      use_id serial references iri(iri_id),
-      primary key(iri_id,use_id)
-      );
-
-  #+end_src
-
-  #+RESULTS:
-  | CREATE TABLE |
-  |--------------|
-  | CREATE TABLE |
-  | CREATE TABLE |
-  | CREATE TABLE |
-  | CREATE TABLE |
+     #+begin_src sql
+       create table if not exists named_canonical(
+         uri uri primary key,
+         named_id serial references named
+       );
+     #+end_src
