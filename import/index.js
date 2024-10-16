@@ -15,6 +15,20 @@ import md5 from 'md5';
 import context from '../schema/context.json' assert { type: 'json' };
 import instance_frame from '../schema/frames/instance.json' assert { type: 'json' };
 
+// This should be in a library, matching context prefixes
+const ns= {
+  "bf": rdf.namespace("http://id.loc.gov/ontologies/bibframe/"),
+  "bflc": rdf.namespace("http://id.loc.gov/ontologies/bflc/"),
+  "lc_hub": rdf.namespace("http://id.loc.gov/resources/hubs/"),
+  "lc_instance": rdf.namespace("http://id.loc.gov/resources/instances/"),
+  "lc_vocabulary": rdf.namespace("http://id.loc.gov/vocabulary/"),
+  "lc_work": rdf.namespace("http://id.loc.gov/resources/works/"),
+  "org": rdf.namespace("http://id.loc.gov/datatypes/orgs/"),
+  "rdf": rdf.namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#"),
+  "rdfs": rdf.namespace("http://www.w3.org/2000/01/rdf-schema#"),
+  "xsd": rdf.namespace("http://www.w3.org/2001/XMLSchema#")
+}
+
 instance_frame['@context'] = context["@context"];
 
 const schema = {};
@@ -59,8 +73,159 @@ async function loadJsonldToDataset(dataset,filePath) {
     });
 }
 
-// https://github.com/rdf-ext/documentation?tab=readme-ov-file
-// https://github.com/quadstorejs/quadstore
+async function fileToNamedNodeDataset(file) {
+  const dataset = rdf.dataset();
+  const namedNode = {};
+  const partOf = {};
+  const blankNode = {};
+  // console.log('blankNode:', blankNode);
+  try {
+    await loadJsonldToDataset(dataset,file); // Wait for the dataset to be populated
+    const allQuads = dataset.match(null, null, null);
+    dataset.forEach(quad => {
+      if (quad.subject.termType === 'NamedNode') {
+        if ( namedNode[quad.subject.value] === undefined ) {
+          namedNode[quad.subject.value] = { dataset: rdf.dataset() };
+          partOf[quad.subject.value] = quad.subject.value;
+        }
+        namedNode[quad.subject.value].dataset.add(quad);
+      } else if (quad.subject.termType === 'BlankNode') {
+        if ( namedNode[partOf[quad.subject.value]] === undefined ) {
+          // This is a blank node that is not part of a named node.
+          if ( blankNode[partOf[quad.subject.value]] === undefined ) {
+            blankNode[quad.subject.value] = { dataset: rdf.dataset() }
+            partOf[quad.subject.value] = quad.subject.value;
+          }
+          blankNode[partOf[quad.subject.value]].dataset.add(quad);
+        } else {
+          namedNode[partOf[quad.subject.value]].dataset.add(quad);
+        }
+      } else {
+        console.error('Unknown:', quad.subject.value);
+      }
+      // Now add blank nodes to their parent named node.
+      if (quad.object.termType === 'BlankNode' &&
+          quad.subject.value !== quad.object.value) {
+        partOf[quad.object.value] = partOf[quad.subject.value];
+        // for any other part of with this object.value change to subject.value
+        for (const [key, value] of Object.entries(partOf)) {
+          if (value === quad.object.value) {
+            partOf[key] = partOf[quad.subject.value];
+          }
+        }
+      }
+      //        console.log(quad.subject.value, quad.predicate.value, quad.object.value);
+    });
+    // You can now perform any other queries or operations on the dataset
+  } catch (error) {
+    console.error('Error loading JSON-LD:', error);
+  }
+  // For each named node, print the triples
+  for (const key in blankNode) {
+    if (namedNode[partOf[key]] === undefined) {
+      console.error('Error: Blank node not part of a named node:', key);
+      //        continue;
+      throw new Error('No parent for blank node: ' + key);
+    }
+    blankNode[key].dataset.forEach(quad => {
+      namedNode[partOf[key]].dataset.add(quad);
+    });
+  }
+  return namedNode;
+}
+
+async function addNamedTable(namedNode, client) {
+  for (const key in namedNode) {
+    const node = namedNode[key];
+    let label = '';
+    const use = {};
+    const types = {};
+    const quads = node.dataset.match(null, null, null);
+    quads.forEach(quad => {
+      if (quad.subject.termType === 'BlankNode' &&
+          ! quad.subject.value.startsWith('_:')) {
+        quad.subject.value = `_:${quad.subject.value}`;
+      }
+      if (quad.object.termType === 'BlankNode' &&
+          ! quad.object.value.startsWith('_:')) {
+        quad.object.value = `_:${quad.object.value}`;
+      } else if (quad.object.termType === 'NamedNode') {
+        use[quad.object.value] = true;
+        if (quad.subject.value === key && quad.predicate.value === ns.rdf.type.value) {
+          types[quad.object.value] = true;
+        }
+      }
+      if (quad.subject.value === key &&
+          quad.predicate.value === ns.rdfs.label.value) {
+        // for now, one label per node
+        label = quad.object.value;
+      }
+      // for now don't include types as use
+      if (quad.predicate.value === ns.rdf.type) {
+        delete use[quad.object.value];
+      }
+    });
+
+    // OK, now we can create our input row
+    // Need to read this again, since IDK the internals for a jp json object
+    const jsonld = await jp.fromRDF(quads);
+    // This is to get a well known checksum for the jsonld packet.
+    const canonized = await jp.canonize(jsonld, {format: 'application/n-quads'});
+    const chk = md5(canonized);
+    // Then, we frame it so jsonb queries/indexes can be pretty
+    const framed = await jp.frame(jsonld,
+                                  { ...schema.frame.default,
+                                    '@type': Object.keys(types) });
+    delete framed['@context'];
+    //      console.log(JSON.stringify(framed, null, 2));
+    // Insert the JSON-LD into the database
+    const insertQuery = `INSERT INTO named (uri, chk, label, jsonld) VALUES ($1, $2, $3, $4) ON CONFLICT (uri,chk) DO UPDATE SET label=EXCLUDED.label RETURNING named_id`;
+    const insertValues = [key, chk, label, JSON.stringify(framed)];
+    try {
+      const result=await client.query(insertQuery, insertValues);
+      node.named_id = result.rows[0].named_id;
+      node.chk = chk;
+      node.types = types;
+      node.use = use;
+    } catch (err) {
+      console.error('Error inserting JSON-LD:', err);
+    }
+  }
+}
+
+async function addNamedTypeTable(namedNode, client) {
+  for (const key in namedNode) {
+    const node = namedNode[key];
+    const named_id = namedNode[key].named_id;
+    for (const type in node.types) {
+      const insertQuery = `INSERT INTO named_type (named_id,type) VALUES ($1, $2) ON CONFLICT DO NOTHING`;
+      const insertValues = [named_id, type ];
+      try {
+        await client.query(insertQuery, insertValues);
+      } catch (err) {
+        console.error(`Error:insert into named_type(${named_id},${type}):`, err);
+      }
+    }
+  }
+}
+
+async function addNamedUseTable(namedNode, client) {
+  for (const key in namedNode) {
+    const node = namedNode[key];
+    const named_id = namedNode[key].named_id;
+    for (const uri in node.use) {
+      let chk = namedNode[uri]?.chk;
+
+      const insertQuery = `INSERT INTO named_use (named_id, uri, chk) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`;
+      const insertValues = [named_id, uri, chk ];
+      try {
+        await client.query(insertQuery, insertValues);
+      } catch (err) {
+        console.error(`Error:insert into uri_use(${named_id},${uri},${chk}):`, err);
+      }
+    }
+  }
+}
 
 // Main function to load the JSON-LD and query the dataset
 async function main() {
@@ -73,11 +238,7 @@ async function main() {
   try {
     // Connect to the database using the service configuration
     await client.connect();
-    console.log('Connected to the database using service:', options.service);
-
-    // Execute the user-provided query or the default one
-    const result = await client.query(options.query);
-    console.log('Query result:', result.rows);
+    console.log('Connected to the database using service:', options.dsn);
   } catch (err) {
     console.error('Error connecting to the database:', err);
   }
@@ -85,127 +246,14 @@ async function main() {
   // get each file from command line options
   for (let i = 0; i < program.args.length; i++) {
     // Create an RDF dataset to act as an in-memory RDF sink
-    const dataset = rdf.dataset();
-
     const file = program.args[i];
     console.log('Processing file:', file);
-    const namedNode = {};
-    const partOf = {};
-    const blankNode = {};
-    // console.log('blankNode:', blankNode);
-    try {
-      await loadJsonldToDataset(dataset,file); // Wait for the dataset to be populated
-      const allQuads = dataset.match(null, null, null);
-      dataset.forEach(quad => {
-        if (quad.subject.termType === 'NamedNode') {
-          if ( namedNode[quad.subject.value] === undefined ) {
-            namedNode[quad.subject.value] = rdf.dataset();
-            partOf[quad.subject.value] = quad.subject.value;
-          }
-          namedNode[quad.subject.value].add(quad);
-        } else if (quad.subject.termType === 'BlankNode') {
-          if ( namedNode[partOf[quad.subject.value]] === undefined ) {
-            // This is a blank node that is not part of a named node.
-            if ( blankNode[partOf[quad.subject.value]] === undefined ) {
-              blankNode[quad.subject.value] = rdf.dataset();
-              partOf[quad.subject.value] = quad.subject.value;
-            }
-            blankNode[partOf[quad.subject.value]].add(quad);
-          } else {
-            namedNode[partOf[quad.subject.value]].add(quad);
-          }
-        } else {
-          console.error('Unknown:', quad.subject.value);
-        }
-        // Now add blank nodes to their parent named node.
-        if (quad.object.termType === 'BlankNode' &&
-            quad.subject.value !== quad.object.value) {
-//          if (quad.object.value === "b656iddOtlocdOtgovresourcesworks11199947" ||
-//              quad.object.value === "b650iddOtlocdOtgovresourcesworks11199947") {
-//            console.log('Found it:', quad);
-//            console.log('partOf:', partOf[quad.subject.value]);
-//          }
-          //console.log(`${quad.object.value} is part of ${partOf[quad.subject.value]}`);
-          //console.log(quad);
-          partOf[quad.object.value] = partOf[quad.subject.value];
-          // for any other part of with this object.value change to subject.value
-          for (const [key, value] of Object.entries(partOf)) {
-            if (value === quad.object.value) {
-              partOf[key] = partOf[quad.subject.value];
-            }
-          }
-        }
-//        console.log(quad.subject.value, quad.predicate.value, quad.object.value);
-      });
-      // You can now perform any other queries or operations on the dataset
-    } catch (error) {
-      console.error('Error loading JSON-LD:', error);
-    }
-    // For each named node, print the triples
-    for (const key in blankNode) {
-      if (namedNode[partOf[key]] === undefined) {
-        console.error('Error: Blank node not part of a named node:', key);
-      console.log('Blank Node:', key);
-      console.log(`partOf: ${partOf[key]}`);
-        console.log(Object.keys(namedNode));
-//        continue;
-        throw new Error('No parent for blank node: ' + key);
-      }
-//      console.log(`Adding blank node ${key} to ${partOf[key]}`);
-      blankNode[key].forEach(quad => {
-        namedNode[partOf[key]].add(quad);
-      });
-    }
-    for (const key in namedNode) {
-//      console.log('Named node:', key);
-      let label = '';
-      const needNode = {};
-      const types = {};
-      const quads = namedNode[key].match(null, null, null);
-      quads.forEach(quad => {
-        if (quad.subject.termType === 'BlankNode' &&
-            ! quad.subject.value.startsWith('_:')) {
-          quad.subject.value = `_:${quad.subject.value}`;
-        }
-        if (quad.object.termType === 'BlankNode' &&
-            ! quad.object.value.startsWith('_:')) {
-          quad.object.value = `_:${quad.object.value}`;
-        } else if (quad.object.termType === 'NamedNode') {
-          needNode[quad.object.value] = true;
-          if (quad.subject.value === key && quad.predicate.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') {
-            types[quad.object.value] = true;
-          }
-        }
-        if (quad.subject.value === key &&
-            quad.predicate.value === 'http://www.w3.org/2000/01/rdf-schema#label') {
-          // for now, one label per node
-          label = quad.object.value;
-        }
-        // for now don't include types as needNode
-        if (quad.predicate.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') {
-          delete needNode[quad.object.value];
-        }
-      });
-      const jsonld = await jp.fromRDF(quads);
-      const canonized = await jp.canonize(jsonld, {format: 'application/n-quads'});
-      const framed = await jp.frame(jsonld,
-                                    { ...schema.frame.default,
-                                      '@type': Object.keys(types) });
-      const chk = md5(canonized);
-//      console.log(`${key} ${chk}`);
-//      console.log("\t",Object.keys(types));
-//      console.log("\t",Object.keys(needNode));
-      delete framed['@context'];
-//      console.log(JSON.stringify(framed, null, 2));
-      // Insert the JSON-LD into the database
-      const insertQuery = `INSERT INTO iri (iri, chk, label, jsonld) VALUES ($1, $2, $3, $4) ON CONFLICT DO NOTHING`;
-      const insertValues = [key, chk, label, JSON.stringify(framed)];
-      try {
-        await client.query(insertQuery, insertValues);
-      } catch (err) {
-        console.error('Error inserting JSON-LD:', err);
-      }
-    }
+
+    const namedNode = await fileToNamedNodeDataset(file)
+    await addNamedTable(namedNode, client);
+    await addNamedTypeTable(namedNode, client);
+    await addNamedUseTable(namedNode, client);
+
   }
   // Disconnect from the database
   await client.end();
@@ -215,9 +263,7 @@ async function main() {
 const program = new Command();
 
 program
-    .requiredOption('-s, --service <service>', 'PostgreSQL service name','bluecore')
     .requiredOption('-d, --dsn <dsn>', 'Database DSN connection string','postgres://postgres:bluecore@localhost:5432/bluecore')
-    .option('-q, --query <query>', 'SQL query to execute', 'SELECT NOW()')
   .parse(process.argv);
 
   // Call the main function
